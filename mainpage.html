@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sexual Harassment Categorization</title>
+    <style>
+        /* Your existing CSS styles here */
+
+        body {
+            background-color: black;
+            color: white;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 24px;
+        }
+
+        textarea {
+            width: 80%;
+            height: 100px;
+            margin-top: 20px;
+            padding: 10px;
+            border-radius: 8px;
+            border: 2px solid #ccc;
+            resize: none;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 14px 20px;
+            margin: 20px 0;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        #prediction {
+            margin-top: 20px;
+        }
+
+        /* Animation */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        p {
+            animation: fadeIn 2s ease;
+            margin-bottom: 30px; /* Added margin to separate from footer */
+        }
+
+        footer {
+            text-align: center;
+            padding: 10px;
+            background-color: #333;
+            color: white;
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+        }
+
+        footer a {
+            color: white;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <p>We prioritize the importance of addressing sexual harassment</p> <!-- Changed heading text -->
+        <h1>Share Your Story</h1>
+        <textarea id="story" rows="4" cols="50" placeholder="Type your story here..."></textarea>
+        <button onclick="predict()">Predict</button>
+        <p id="prediction"></p>
+    </div>
+
+    <!-- Your paragraph tag -->
+    <p>Women, it's not your fault. Stand tall, muster courage to confront the world. You have no reason to feel ashamed; it's the perpetrator who should carry the shame of their actions.</p>
+
+    <!-- Your footer with the Women Helpline Scheme link -->
+    <footer>
+        <p>WOMEN HELPLINE SCHEME - 181</p>
+        <p><a href="mailto:sang22059.ad@rmkec.ac.in,rith22062.ad@rmkec.ac.in,bhuv22008.ad@rmkec.ac.in">Contact Us</a></p>
+    </footer>
+
+    <script>
+        function predict() {
+            var story = document.getElementById('story').value;
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", "predict.php", true); // Replace 'predict.php' with your backend endpoint
+            xhr.setRequestHeader("Content-Type", "application/json");
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    var response = JSON.parse(xhr.responseText);
+                    document.getElementById('prediction').innerText = "Predicted category: " + response.category;
+                }
+            };
+            var data = JSON.stringify({ story: story });
+            xhr.send(data);
+        }
+    </script>
+</body>
+</html>
